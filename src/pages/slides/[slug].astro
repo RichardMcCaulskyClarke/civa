@@ -1,0 +1,30 @@
+---
+import Layout from '../../components/Layout.astro';
+import Slide from '../../components/Slide/Slide.astro';
+import { getEntry, getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const slides = await getCollection('slide');
+
+  return slides.map((slide) => ({
+    params: { slug: slide.id },
+  }));
+}
+
+const currentMode = import.meta.env.MODE
+
+// Extract the slug from the route params
+const { slug } = Astro.params as {slug: string};
+const presentation = await getCollection('slide');
+
+// Fetch the slide entry using the slug
+const slide = await getEntry('slide', slug);
+
+// Handle cases where the slide is not found
+if (!slide) {
+  throw new Error(`Slide with slug "${slug}" not found.`);
+}
+---
+<Layout title="Slide">
+  <Slide slide={slide} presentation={presentation} />
+</Layout>

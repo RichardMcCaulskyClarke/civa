@@ -1,0 +1,17 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import Editor from './Editor.jsx';
+import styles from './style.module.sass';
+
+const { layer } = Astro.props;
+const currentMode = import.meta.env.MODE
+---
+
+<div class={`${styles.layer}`} style={{zIndex: layer.level}}>
+    <div class={`${styles.wrap}`}>
+        <slot />
+        { !layer.image && (<img class={styles.image} src={`../_blank.png`} width="1365" height="1024" />) }
+        { layer.image && (<img  class={styles.image} src={layer.image.src} width={layer.image.width} height={layer.image.height} />) }
+    </div>
+</div>

@@ -1,0 +1,27 @@
+---
+import Editor from './Editor.jsx'
+
+const currentMode = import.meta.env.MODE
+const { overlay } = Astro.props;
+const targetAttr = overlay?.newWindow ? '_blank' : '_self';
+
+---
+<a
+  href={overlay.target || '#'}
+  target={targetAttr}
+  class={`overlay ${overlay.type}`}
+  style={`
+    position: absolute;
+    top: ${overlay.top}%;
+    left: ${overlay.left}%;
+    width: ${overlay.width}%;
+    height: ${overlay.height}%;
+    cursor: pointer;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  `}
+>
+
+</a>

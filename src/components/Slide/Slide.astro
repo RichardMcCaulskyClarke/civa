@@ -1,0 +1,33 @@
+---
+
+import type { CollectionEntry } from 'astro:content';
+import type { SlideType, LayerType, OverlayType } from '../../content/config';
+
+import Layer from '../Layer/Layer.astro';
+import Overlay from '../Overlay/Overlay.astro';
+
+import Editor from './Editor.jsx';
+import styles from './style.module.sass';
+
+const { slide, presentation } = Astro.props;
+const { image, layers } = slide.data;
+const currentMode = import.meta.env.MODE
+const mainLayer = {
+    level: 1,
+    image
+}
+---
+
+{currentMode === 'development' && (<Editor client:load initialSlide={slide.data} presentation={presentation} />)}
+{currentMode !== 'development' && (
+    <div class={styles['slide-container']}>
+        <Layer layer={mainLayer} />
+        {layers && layers.map((layer : LayerType) => (
+            <Layer {layer}>
+                {layer.overlays && layer.overlays.map((overlay : OverlayType)=>
+                    <Overlay {overlay} />
+                )}
+            </Layer>
+        ))}
+    </div>
+)}

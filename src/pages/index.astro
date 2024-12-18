@@ -1,0 +1,15 @@
+---
+import Layout from '../components/Layout.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+// Fetch the 'slide' collection
+const slides = await getCollection('slide');
+
+---
+<Layout title="Home">
+	<ul>
+	{ slides && slides.map(slide => (
+		<li><a href={`/slides/${slide.id}`}>{slide.data.id}</a></li>
+	))}
+	</ul>
+</Layout>

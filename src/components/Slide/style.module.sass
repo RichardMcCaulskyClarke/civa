@@ -1,0 +1,36 @@
+.slide-container
+	display: flex
+	justify-content: center
+	align-items: center
+	width: 100vw
+	height: 100vh
+	overflow: hidden
+
+// Previously used for Carousel navigation...
+.navigation
+	position: absolute
+	top: 0
+	width: 100%
+	height: 100%
+
+.next, .prev
+	width: 30%
+	height: 100%
+	position: absolute
+	top: 0
+	color: transparent
+	display: flex
+	text-decoration: none
+	color: #eb1700
+	text-shadow: 0 2px 5px rgba(0,0,0,.5)
+	opacity: 0 // Start off as fully transparent
+	animation: none
+	&:hover
+		opacity: 1
+		animation: fadeIn 0.5s ease, stayVisible 0, forwards, fadeOut 0.5s 2s forwards
+
+	&::after
+		position: absolute
+		align-self: center
+		font-size: 20em
+
