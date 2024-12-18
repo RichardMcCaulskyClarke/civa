@@ -1,0 +1,52 @@
+---
+import styles from './style.module.sass';
+import type { SlideSchema } from '../../content/config';
+const { slide, presentation } = Astro.props;
+const currentMode = import.meta.env.MODE;
+
+const presentationFlow = presentation.filter(s => {
+    return s.order !== null
+})
+
+const previousAndNext = (id:string) => {
+
+// Find index of current slide
+  const index = presentationFlow.map(i => i.id).indexOf(id);
+  //const index = presentationFlow.findIndex((s:any) => s.id === id);
+
+  // if index is not found return undefined
+  if (index === -1) {
+    return undefined
+  }
+  
+  // Get previous slide index
+  const prev = presentationFlow[(index - 1)]
+  if (!prev) {
+    return undefined
+  }
+  
+  // Get next slide index
+  const next = presentationFlow[(index + 1)]
+  if (!next) {
+    return undefined
+  }
+  
+  // Return previous/next slide
+  return {previous:prev, next:next}
+}
+
+const output = {...previousAndNext(slide.id)};
+
+// console.log(presentationFlow);
+// console.log("previous", out.previous.id);
+// console.log("next", out.next.id);
+---
+
+<div>
+    <slot />
+    <div id={styles['slide_btn_container']}>
+        <a href={output.previous.id} id={styles['slide_btn_prev']}>
+        <a href={output.next.id} id={styles['slide_btn_next']}>
+    </div>
+</div>
+

@@ -2,6 +2,7 @@
 import Layout from '../../components/Layout.astro';
 import Slide from '../../components/Slide/Slide.astro';
 import { getEntry, getCollection } from 'astro:content';
+import SlideNavigation from "../../components/Slide/SlideNavigation.astro";
 
 export async function getStaticPaths() {
   const slides = await getCollection('slide');
@@ -26,5 +27,7 @@ if (!slide) {
 }
 ---
 <Layout title="Slide">
-  <Slide slide={slide} presentation={presentation} />
+  <SlideNavigation slide={slide} presentation={presentation}>
+    <Slide slide={slide} presentation={presentation} />
+  </SlideNavigation>
 </Layout>

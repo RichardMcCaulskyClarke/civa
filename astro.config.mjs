@@ -5,4 +5,7 @@ import react from '@astrojs/react';
 
 export default defineConfig({
 	integrations: [slideToolbarIntegration,react()],
+	devToolbar: {
+		enabled: true
+	  }
 });

@@ -8,7 +8,7 @@ const slides = await getCollection('slide');
 ---
 <Layout title="Home">
 	<ul>
-	{ slides && slides.map(slide => (
+	{ slides && slides.map((slide: { id: any; data: { id: unknown; }; }) => (
 		<li><a href={`/slides/${slide.id}`}>{slide.data.id}</a></li>
 	))}
 	</ul>

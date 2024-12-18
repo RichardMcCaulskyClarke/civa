@@ -19,8 +19,9 @@ const mainLayer = {
 ---
 
 {currentMode === 'development' && (<Editor client:load initialSlide={slide.data} presentation={presentation} />)}
-{currentMode !== 'development' && (
+{currentMode === 'development' && (
     <div class={styles['slide-container']}>
+        
         <Layer layer={mainLayer} />
         {layers && layers.map((layer : LayerType) => (
             <Layer {layer}>
